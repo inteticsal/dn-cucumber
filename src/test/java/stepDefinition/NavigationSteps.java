@@ -4,8 +4,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import pageAction.BrowserActions;
 import pageAction.BasePageActions;
+import pageAction.BrowserActions;
 import testRunner.TestRunner;
 
 public class NavigationSteps {
@@ -17,7 +17,7 @@ public class NavigationSteps {
     @When("^I open a browser and go to (desktop|mobile) login page$")
     public void iOpenDesktopVersionOfSite(String siteVersion) throws Throwable {
         String url = null;
-        switch (siteVersion){
+        switch (siteVersion) {
             case "desktop":
                 url = TestRunner.config.get("siteUrl");
                 TestRunner.isMobile = false;

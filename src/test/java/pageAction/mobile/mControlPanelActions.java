@@ -2,12 +2,9 @@ package pageAction.mobile;
 
 import cucumber.api.DataTable;
 import org.junit.Assert;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
 import pageAction.BasePageActions;
-import pageAction.BrowserActions;
 import pageObject.mobile.mControlPanel;
 import webDriver.Driver;
 

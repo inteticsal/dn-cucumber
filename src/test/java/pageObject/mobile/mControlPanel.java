@@ -56,8 +56,7 @@ public class mControlPanel {
         return driver.findElement(By.xpath("//div[contains(@class,'PopupPanel')]//a[text()='Cancel']"));
     }
 
-    public static WebElement enterBtnFilterPopUp()
-    {
+    public static WebElement enterBtnFilterPopUp() {
         return driver.findElement(By.xpath("//div[contains(@class,'PopupPanel')]//a[text()='Save']"));
     }
 

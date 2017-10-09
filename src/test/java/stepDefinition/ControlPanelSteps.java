@@ -10,8 +10,8 @@ import testRunner.TestRunner;
 public class ControlPanelSteps {
     @And("^I click (open|hide) filters at Control Panel$")
     public void iClickMoreFiltersLinkAtControlPanel(String action) throws InterruptedException {
-        if (TestRunner.isMobile){
-            switch (action){
+        if (TestRunner.isMobile) {
+            switch (action) {
                 case "open":
                     mControlPanelActions.clickMoreFiltersLink();
                     break;
@@ -20,7 +20,7 @@ public class ControlPanelSteps {
                     break;
             }
         } else {
-            switch (action){
+            switch (action) {
                 case "open":
                     ControlPanelActions.clickMoreFiltersLink();
                     break;

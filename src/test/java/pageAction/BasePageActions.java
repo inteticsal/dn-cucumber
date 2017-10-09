@@ -12,6 +12,8 @@ import pageObject.mobile.mControlPanel;
 import testRunner.TestRunner;
 import webDriver.Driver;
 
+import java.util.List;
+
 public class BasePageActions {
     protected static WebDriver driver = Driver.getCurrentDriver();
     static int sleepTimeout = Integer.parseInt(TestRunner.config.get("msSleep"));
@@ -19,7 +21,7 @@ public class BasePageActions {
     protected static Actions action = new Actions(driver);
 
     public static String getControlHeaderName() {
-        if (TestRunner.isMobile){
+        if (TestRunner.isMobile) {
             return mControlPanel.controlHeader().getText();
         } else {
             return ControlPanel.controlHeader().getText();
@@ -27,7 +29,7 @@ public class BasePageActions {
     }
 
     public static void waitForPageLoadingIsCompleted() throws InterruptedException {
-        if (TestRunner.isMobile){
+        if (TestRunner.isMobile) {
             sleep();
         } else {
             wait.until(ExpectedConditions.attributeContains(By.xpath("//div[@id='waitWidget']"), "aria-hidden", "true"));
@@ -45,5 +47,17 @@ public class BasePageActions {
 
     protected static void sleep() throws InterruptedException {
         Thread.sleep(sleepTimeout);
+    }
+
+    protected static void expandAll(List<WebElement> elementsToExpand) {
+        for (WebElement ele : elementsToExpand) {
+            ele.click();
+        }
+    }
+
+    protected static void collapseAll(List<WebElement> elementsToCollapse) {
+        for (WebElement ele : elementsToCollapse) {
+            ele.click();
+        }
     }
 }

@@ -25,9 +25,9 @@ public class TopPanelSteps {
 
     @Then("^I navigate to (Dashboard|Story List|Tasks|Calendar|Management|My Schedule|Advanced Search)$")
     public void iNavigateToDashboard(String mainItemName) throws InterruptedException {
-        if (TestRunner.isMobile){
+        if (TestRunner.isMobile) {
             mNavPanelActions.navigateTo(mainItemName);
-        } else{
+        } else {
             NavPanelActions.navigateTo(mainItemName);
         }
     }

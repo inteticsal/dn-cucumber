@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import webDriver.Driver;
 
+import java.util.List;
+
 public class EventCreationPage {
     static WebDriver driver = Driver.getCurrentDriver();
 
@@ -12,28 +14,58 @@ public class EventCreationPage {
         return driver.findElement(By.xpath("//div[@class='headTitle']/span[contains(text(),'Event')]"));
     }
 
-    public static WebElement descriptionTextArea() {
-        return driver.findElement(By.xpath("//div[@class='editable-panel-deck' and contains(.//a, 'Enter description here')]/div/textarea"));
-    }
+    public static class generalBlock {
+        public static WebElement currentDescriptionText() {
+            return driver.findElement(By.xpath("//span[@class='elementTitleContent']/span"));
+        }
 
-    public static WebElement saveLinkTop() {
-        return driver.findElement(By.xpath("//div[@class='saveLinks']/a[text()='Save']"));
-    }
+        public static WebElement descriptionTextArea() {
+            return driver.findElement(By.xpath("//div[contains(@class,'element-title')]//textarea"));
+        }
 
-    public static WebElement cancelLinkTop() {
-        return driver.findElement(By.xpath("//div[@class='saveLinks']/a[text()='Cancel']"));
-    }
+        public static WebElement notePanel() {
+            return driver.findElement(By.xpath("//div[contains(@class,'note-panel')]"));
+        }
 
-    public static WebElement saveBtnBottom() {
-        return driver.findElement(By.xpath("//div[@class='buttons-bottom']/a[text()='Save']"));
-    }
+        public static WebElement uploadPanel() {
+            return driver.findElement(By.xpath("//div[@class='attachments']//input[@class='gwt-FileUpload']"));
+        }
 
-    public static WebElement saveAndNextBtnBottom() {
-        return driver.findElement(By.xpath("//div[@class='buttons-bottom']/a[text()='Save & Next']"));
-    }
+        public static WebElement locationPanelLink() {
+            return driver.findElement(By.xpath("//div[text()='Location']/following::a[text()='Add']"));
+        }
 
-    public static WebElement cancelBtnBottom() {
-        return driver.findElement(By.xpath("//div[@class='buttons-bottom']/a[text()='Cancel']"));
+        public static WebElement locationPanelInput() {
+            return driver.findElement(By.xpath("//div[@class='location-edit']//input"));
+        }
+
+        public static WebElement associatedWithLink() {
+            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]/div/div"));
+        }
+
+        public static WebElement associatedWithPopup() {
+            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//div[@class='popupContent']"));
+        }
+
+        public static List<WebElement> associatedWithPopupExpandIcons() {
+            return driver.findElements(By.xpath("//div[@title='Expand']"));
+        }
+
+        public static List<WebElement> associatedWithPopupCollapseIcons() {
+            return driver.findElements(By.xpath("//div[@title='Collapse']"));
+        }
+
+        public static WebElement associatedWithPopupGroupLabel(String groupName) {
+            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//*[text()='" + groupName + "']"));
+        }
+
+        public static WebElement associatedWithPopupEnterBtn() {
+            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//a[text()='Enter']"));
+        }
+
+        public static WebElement associatedWithPopupCancelBtn() {
+            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//a[text()='Cancel']"));
+        }
     }
 
     public static class TasksPanel {
@@ -106,5 +138,26 @@ public class EventCreationPage {
         public static WebElement publicationDatePopUp(String selectDate) {
             return driver.findElement(By.xpath("//div[@class='issue-content-panel']//*[contains(text(),'" + selectDate + "')]"));
         }
+    }
+
+
+    public static WebElement saveLinkTop() {
+        return driver.findElement(By.xpath("//div[@class='saveLinks']/a[text()='Save']"));
+    }
+
+    public static WebElement cancelLinkTop() {
+        return driver.findElement(By.xpath("//div[@class='saveLinks']/a[text()='Cancel']"));
+    }
+
+    public static WebElement saveBtnBottom() {
+        return driver.findElement(By.xpath("//div[@class='buttons-bottom']/a[text()='Save']"));
+    }
+
+    public static WebElement saveAndNextBtnBottom() {
+        return driver.findElement(By.xpath("//div[@class='buttons-bottom']/a[text()='Save & Next']"));
+    }
+
+    public static WebElement cancelBtnBottom() {
+        return driver.findElement(By.xpath("//div[@class='buttons-bottom']/a[text()='Cancel']"));
     }
 }

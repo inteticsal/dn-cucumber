@@ -3,6 +3,7 @@ package stepDefinition;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import pageAction.desktop.EventCreationPageActions;
+import pageAction.desktop.NavPanelActions;
 
 public class NewEventSteps {
     @And("^I am at new Event creation page$")
@@ -38,5 +39,41 @@ public class NewEventSteps {
     @Then("^I click Save Event top link$")
     public void iClickSaveEventTopLink() {
         EventCreationPageActions.clickSaveTopLink();
+    }
+
+    @Then("^I create a pure event$")
+    public void iCreateAPureEvent() {
+        NavPanelActions.createNewItem("Event");
+        //TODO:
+    }
+
+    @And("^I upload PNG image$")
+    public void iUploadImage() {
+        EventCreationPageActions.uploadImage();
+    }
+
+    @And("^I enter note with \"([^\"]*)\" text$")
+    public void iEnterNoteWithText(String text) throws Throwable {
+        EventCreationPageActions.setNote(text);
+    }
+
+    @And("^I set location to \"([^\"]*)\"$")
+    public void iSetLocationTo(String locationName) throws Throwable {
+        EventCreationPageActions.setLocation(locationName);
+    }
+
+    @And("^I associate it with \"([^\"]*)\"$")
+    public void iAssociateItWith(String groupLabel) throws Throwable {
+        EventCreationPageActions.associateWith(groupLabel);
+    }
+
+    @And("^I verify Event Description \"([^\"]*)\"$")
+    public void iVerifyEventDesctiption(String text) throws Throwable {
+        EventCreationPageActions.verifyDescription(text);
+    }
+
+    @And("^I clear Event Description$")
+    public void iClearEventDescription() throws Throwable {
+        EventCreationPageActions.clearDescription();
     }
 }
