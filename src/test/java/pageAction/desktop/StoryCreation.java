@@ -5,7 +5,7 @@ import pageAction.BasePageActions;
 import pageObject.desktop.StoryCreationPage;
 import webDriver.Driver;
 
-public class StoryCreationPageActions extends BasePageActions {
+public class StoryCreation extends BasePageActions {
 
     public static void verifyPageIsActive() {
         StoryCreationPage.treatStoryCreationPage().isDisplayed();

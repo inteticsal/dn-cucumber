@@ -14,7 +14,7 @@ public class EventCreationPage {
         return driver.findElement(By.xpath("//div[@class='headTitle']/span[contains(text(),'Event')]"));
     }
 
-    public static class generalBlock {
+    public static class generalPanel {
         public static WebElement currentDescriptionText() {
             return driver.findElement(By.xpath("//span[@class='elementTitleContent']/span"));
         }

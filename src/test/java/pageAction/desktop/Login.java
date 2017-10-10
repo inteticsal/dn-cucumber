@@ -4,7 +4,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageAction.BasePageActions;
 import pageObject.desktop.LoginPage;
 
-public class LoginActions extends BasePageActions {
+public class Login extends BasePageActions {
     public static void login(String mail, String pwd) {
         wait.until(ExpectedConditions.elementToBeClickable(LoginPage.loginBtn()));
         LoginPage.inputEmail().sendKeys(mail);

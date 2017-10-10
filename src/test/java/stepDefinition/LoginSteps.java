@@ -2,7 +2,7 @@ package stepDefinition;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
-import pageAction.desktop.LoginActions;
+import pageAction.desktop.Login;
 import pageAction.mobile.mLoginActions;
 import testRunner.TestRunner;
 
@@ -12,7 +12,7 @@ public class LoginSteps {
         if (TestRunner.isMobile) {
             mLoginActions.login("org1", "tomcattom");
         } else {
-            LoginActions.login("org1", "tomcattom");
+            Login.login("org1", "tomcattom");
         }
     }
 
@@ -21,7 +21,7 @@ public class LoginSteps {
         if (TestRunner.isMobile) {
             mLoginActions.verifyPageIsActive();
         } else {
-            LoginActions.verifyPageIsActive();
+            Login.verifyPageIsActive();
         }
     }
 }
