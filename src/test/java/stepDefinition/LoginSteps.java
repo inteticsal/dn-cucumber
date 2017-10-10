@@ -10,9 +10,9 @@ public class LoginSteps {
     @When("^I login as valid user$")
     public void iLoginAsValidUser() throws Throwable {
         if (TestRunner.isMobile) {
-            mLoginActions.login("", "");
+            mLoginActions.login(TestRunner.config.get("userName"), TestRunner.config.get("userPwd"));
         } else {
-            Login.login("", "");
+            Login.login(TestRunner.config.get("userName"), TestRunner.config.get("userPwd"));
         }
     }
 
