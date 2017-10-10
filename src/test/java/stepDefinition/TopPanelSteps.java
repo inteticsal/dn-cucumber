@@ -13,7 +13,7 @@ public class TopPanelSteps {
         NavPanel.verifySelectedMenu(expectedMenuItem);
     }
 
-    @Then("^I create a new (Story|Event|Note|Absence|Shift|Topic)$")
+    @Then("^I create a new (Story|Event|Note|Absence|Shift|Topic) using CAB$")
     public void iCreateNewStory(String itemToCreate) {
         NavPanel.createNewItem(itemToCreate);
     }

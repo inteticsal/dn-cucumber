@@ -9,21 +9,21 @@ Feature: Control Panel - Formats filter
 
   Scenario: Test 739: Control Panel - creating required test data
     When I am at "Dashboard" page
-    Then I create a new Story
-    And I am at new Story creation page
-    And I enter Story Description "Test 739: Story without content"
+    Then I create a new Story using CAB
+    And I am at new Entity creation page
+    And I enter Entity Description "Test 739: Story without content"
     And I delete first Text article at Tasks Panel
     Then I click SAVE & NEXT bottom button
-    And I enter Story Description "Test 739: Story with Text only"
+    And I enter Entity Description "Test 739: Story with Text only"
     Then I click SAVE & NEXT bottom button
-    And I enter Story Description "Test 739: Story with Photo only"
-    And I add Photo task to Story
+    And I enter Entity Description "Test 739: Story with Photo only"
+    And I add Photo task to Entity
     And I delete first Text article at Tasks Panel
     Then I click SAVE & NEXT bottom button
-    And I enter Story Description "Test 739: Story with Audio only"
-    And I add Audio task to Story
+    And I enter Entity Description "Test 739: Story with Audio only"
+    And I add Audio task to Entity
     And I delete first Text article at Tasks Panel
-    Then I click Save Story top link
+    Then I click Save Entity top link
     And I am at Dashboard page
 
   Scenario: Test 739: Control Panel - verify default filter's values
@@ -78,7 +78,6 @@ Feature: Control Panel - Formats filter
     Then I press ENTER in filters pop-up
     And I verify that Tasks additional filter has "2 selected" value
     Then I click APPLY filters button
-    And I wait for page loading has been completed
     And I see active filters: "tasks"
     And I verify that "Test 739: Story with Text only" displayed at Story List
     And I verify that "Test 739: Story with Photo only" displayed at Story List
@@ -91,7 +90,6 @@ Feature: Control Panel - Formats filter
     Then I press ENTER in filters pop-up
     And I verify that Tasks additional filter has "No tasks" value
     Then I click APPLY filters button
-    And I wait for page loading has been completed
     And I see active filters: "tasks"
     And I verify that "Test 739: Story without content" displayed at Story List
 
@@ -102,7 +100,6 @@ Feature: Control Panel - Formats filter
     Then I press ENTER in filters pop-up
     And I verify that Tasks additional filter has "3 selected" value
     Then I click APPLY filters button
-    And I wait for page loading has been completed
     And I see active filters: "tasks"
     And I verify that "Test 739: Story without content" displayed at Story List
     And I verify that "Test 739: Story with Text only" displayed at Story List
@@ -154,7 +151,6 @@ Feature: Control Panel - Formats filter
 
   Scenario: Test 739: Control Panel - Advanced Search
     When I navigate to Advanced Search
-    And I wait for page loading has been completed
     And I enter "Test 739" into advanced search
     And I select Limit to these for 'Assigned to' option
     Then I click on "Any task"
@@ -192,15 +188,15 @@ Feature: Control Panel - Formats filter
   Scenario: Test 739: Control Panel - event filters
     When I am at Dashboard page
     And I reset all Dashboard filters
-    Then I create a new Event
-    And I am at new Event creation page
-    Then I enter Event Description "Test 739 - SHOW"
-    And I add Live task to Event
-    Then I add "NY Times" platform to Event
-    And I add "NY Times (Online)" platform to Event
+    Then I create a new Event using CAB
+    And I am at new Entity creation page
+    Then I enter Entity Description "Test 739 - SHOW"
+    And I add Live task to Entity
+    Then I add "NY Times" platform to Entity
+    And I add "NY Times (Online)" platform to Entity
     Then I set platform category to "spo2"
     And I set publication date to "Story idea (no date)"
-    Then I click Save Event top link
+    Then I click Save Entity top link
     And I am at Dashboard page
     Then I navigate to Story - Ideas
     And I see "Test 739 - SHOW" at "spo2" Story Idea section

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import webDriver.Driver;
 
-public class NavPanel {
+public class NavigationPanel {
     static WebDriver driver = Driver.getCurrentDriver();
 
     public static WebElement menuHamburger() {

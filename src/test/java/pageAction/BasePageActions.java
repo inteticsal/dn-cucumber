@@ -32,7 +32,7 @@ public class BasePageActions {
         if (TestRunner.isMobile) {
             sleep();
         } else {
-            wait.until(ExpectedConditions.attributeContains(By.xpath("//div[@id='waitWidget']"), "aria-hidden", "true"));
+            wait.until(ExpectedConditions.attributeContains(By.id("page-is-fully-loaded"), "value", "true"));
             sleep();
         }
     }
@@ -59,5 +59,9 @@ public class BasePageActions {
         for (WebElement ele : elementsToCollapse) {
             ele.click();
         }
+    }
+
+    public static void callContextMenuForElement(WebElement ele) {
+        action.moveToElement(ele).perform();
     }
 }

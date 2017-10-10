@@ -3,6 +3,7 @@ package stepDefinition;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import pageAction.BrowserActions;
 import pageAction.desktop.FiltersPanel;
 import pageAction.mobile.mControlPanelActions;
 import testRunner.TestRunner;
@@ -122,8 +123,9 @@ public class ControlPanelSteps {
     }
 
     @And("^I click APPLY filters button$")
-    public void iClickAPPLYFiltersButton() {
+    public void iClickAPPLYFiltersButton() throws InterruptedException {
         FiltersPanel.ApplyBtn.click();
+        BrowserActions.waitForPageLoadingIsCompleted();
     }
 
     @And("^I uncheck All filters$")

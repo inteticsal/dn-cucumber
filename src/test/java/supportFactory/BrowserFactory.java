@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -62,7 +64,11 @@ public class BrowserFactory {
                 return new ChromeDriver(options);
             case Firefox:
                 System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/drivers/geckodriver");
-                return new FirefoxDriver();
+                FirefoxProfile firefoxProfile = new FirefoxProfile();
+                firefoxProfile.setAcceptUntrustedCertificates(true);
+                firefoxProfile.setAssumeUntrustedCertificateIssuer(true);
+                DesiredCapabilities dc = new FirefoxOptions().setProfile(firefoxProfile).addTo(DesiredCapabilities.firefox());
+                return new FirefoxDriver(dc);
             case IE:
                 return new InternetExplorerDriver();
             case Opera:

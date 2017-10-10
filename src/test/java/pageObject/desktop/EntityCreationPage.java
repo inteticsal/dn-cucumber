@@ -7,11 +7,11 @@ import webDriver.Driver;
 
 import java.util.List;
 
-public class EventCreationPage {
+public class EntityCreationPage {
     static WebDriver driver = Driver.getCurrentDriver();
 
     public static WebElement treatEventCreationPage() {
-        return driver.findElement(By.xpath("//div[@class='headTitle']/span[contains(text(),'Event')]"));
+        return driver.findElement(By.xpath("//div[@class='headTitle']/span[contains(text(),'Event') or contains(text(),'Story')]"));
     }
 
     public static class generalPanel {
