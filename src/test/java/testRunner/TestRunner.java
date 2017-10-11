@@ -15,6 +15,7 @@ import java.util.Map;
         plugin = {"pretty"})
 public class TestRunner {
     public static Map<String, String> config;
+    public static Map<String, String> users;
     public static Scenario scenario;
     public static boolean isMobile;
 }

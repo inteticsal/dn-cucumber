@@ -1,6 +1,7 @@
 package stepDefinition;
 
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pageAction.desktop.Login;
 import pageAction.mobile.mLoginActions;
@@ -10,9 +11,9 @@ public class LoginSteps {
     @When("^I login as valid user$")
     public void iLoginAsValidUser() throws Throwable {
         if (TestRunner.isMobile) {
-            mLoginActions.login(TestRunner.config.get("userName"), TestRunner.config.get("userPwd"));
+            mLoginActions.login("org1");
         } else {
-            Login.login(TestRunner.config.get("userName"), TestRunner.config.get("userPwd"));
+            Login.login("org1");
         }
     }
 
@@ -22,6 +23,15 @@ public class LoginSteps {
             mLoginActions.verifyPageIsActive();
         } else {
             Login.verifyPageIsActive();
+        }
+    }
+
+    @Then("^I login as \"([^\"]*)\" user$")
+    public void iLoginAsUser(String name) throws Throwable {
+        if (TestRunner.isMobile) {
+            mLoginActions.login(name);
+        } else {
+            Login.login(name);
         }
     }
 }

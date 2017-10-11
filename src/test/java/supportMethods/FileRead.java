@@ -31,4 +31,21 @@ public class FileRead {
 
         return properties;
     }
+
+    public static Map<String, String> getUsers() throws IOException {
+
+        Properties prop = new Properties();
+        prop.load(readFile("src/test/resources/users.properties"));
+
+        Map<String, String> users = new HashMap<String, String>();
+
+        Enumeration<Object> KeyValues = prop.keys();
+        while (KeyValues.hasMoreElements()) {
+            String key = (String) KeyValues.nextElement();
+            String value = prop.getProperty(key);
+            users.put(key, System.getProperty(key, value));
+        }
+
+        return users;
+    }
 }

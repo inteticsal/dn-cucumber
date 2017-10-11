@@ -14,9 +14,10 @@ public class Hooks {
     private static Boolean runOnce = false;
 
     @Before
-    public void beforeAll() throws FileNotFoundException, IOException, InterruptedException {
+    public void beforeAll() throws IOException, InterruptedException {
         if (!runOnce) {
             TestRunner.config = FileRead.readProperties();
+            TestRunner.users = FileRead.getUsers();
         }
     }
 

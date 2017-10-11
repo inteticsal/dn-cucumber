@@ -4,7 +4,7 @@ Feature: Control Panel - Formats filter
   Background:
     Given I open a browser and go to desktop login page
     And I am at Login page
-    Then I login as valid user
+    Then I login as "org1" user
     And I navigate to Dashboard
 
   Scenario: Test 739: Control Panel - creating required test data
