@@ -1,6 +1,7 @@
 package pageAction.desktop;
 
 import org.junit.Assert;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageAction.BasePageActions;
@@ -29,90 +30,157 @@ public class EntityCreation extends BasePageActions {
         EntityCreationPage.cancelBtnBottom().click();
     }
 
+    protected static void changeFocus() {
+        EntityCreationPage.treatEventCreationPage().click();
+    }
+
     public static class Description {
         public static void set(String description) {
-            EntityCreationPage.generalPanel.descriptionTextArea().sendKeys(Driver.timeStamp + "-" + description);
-            EntityCreationPage.treatEventCreationPage().click();
+            try {
+                EntityCreationPage.generalPanel.descriptionText().click();
+            } catch (WebDriverException ElementNotVisibleException) {
+            }
+            EntityCreationPage.generalPanel.description().sendKeys(Driver.timeStamp + "-" + description);
+            changeFocus();
         }
 
         public static void clear() throws InterruptedException {
-            EntityCreationPage.generalPanel.currentDescriptionText().click();
-            EntityCreationPage.generalPanel.descriptionTextArea().clear();
+            EntityCreationPage.generalPanel.descriptionText().click();
+            EntityCreationPage.generalPanel.description().clear();
+            changeFocus();
         }
 
-        public static String get() {
-            return EntityCreationPage.generalPanel.currentDescriptionText().getText();
+        public static String currentValue() {
+            return EntityCreationPage.generalPanel.descriptionText().getText();
         }
 
         public static void verify(String expectedDescription) {
-            Assert.assertEquals(get(), Driver.timeStamp + "-" + expectedDescription);
+            Assert.assertEquals(currentValue(), Driver.timeStamp + "-" + expectedDescription);
         }
     }
 
     public static class Note {
         public static void set(String textNote) {
-            EntityCreationPage.generalPanel.notePanel().click();
+            EntityCreationPage.generalPanel.notePanelText().click();
             EntityCreationPage.generalPanel.notePanel().sendKeys(textNote);
+            changeFocus();
         }
 
         public static void clear() {
-            throw new org.apache.commons.lang3.NotImplementedException("Not implemented yet");
+            EntityCreationPage.generalPanel.notePanelText().click();
+            EntityCreationPage.generalPanel.notePanel().clear();
+            changeFocus();
         }
 
-        public static void get() {
-            throw new org.apache.commons.lang3.NotImplementedException("Not implemented yet");
+        public static String currentValue() {
+            return EntityCreationPage.generalPanel.notePanelText().getText();
         }
 
         public static void verify(String expectedNote) {
-            throw new org.apache.commons.lang3.NotImplementedException("Not implemented yet");
+            Assert.assertEquals(currentValue(), expectedNote);
         }
     }
 
     public static class Article {
         public static void delete(WebElement ele) {
             callContextMenuForElement(ele);
-            EntityCreationPage.TasksPanel.deleteLinkContextMenu().click();
+            EntityCreationPage.ContextMenu.delete().click();
         }
 
         public static void deleteFirst() {
             WebElement element = EntityCreationPage.TasksPanel.textArticleLabel();
             callContextMenuForElement(element);
-            EntityCreationPage.TasksPanel.deleteLinkContextMenu().click();
+            EntityCreationPage.ContextMenu.delete().click();
         }
     }
 
     public static class Attachments {
-        public static void uploadImage() {
-            EntityCreationPage.generalPanel.uploadPanel().sendKeys(System.getProperty("user.dir") + "/src/test/testData/desk-net.png");
+        public static void uploadImage(String fileName) {
+            //TODO: add verification if file exists in testData
+            EntityCreationPage.generalPanel.uploadPanel().sendKeys(System.getProperty("user.dir") + "/src/test/testData/" + fileName);
+            try {
+                wait.until(ExpectedConditions.invisibilityOf(EntityCreationPage.uploadingMessage()));
+            } catch (WebDriverException NoSuchElementException) {
+            }
+        }
+
+        public static void verify(String fileName) {
+            EntityCreationPage.generalPanel.attachment(fileName).isDisplayed();
+        }
+
+        public static void remove(String fileName) {
+            callContextMenuForElement(EntityCreationPage.generalPanel.attachment(fileName));
+            EntityCreationPage.ContextMenu.delete().click();
+        }
+    }
+
+    public static class ConfirmationDialog {
+        public static void clickYes() {
+            EntityCreationPage.ConfirmationDialog.YES().click();
+        }
+
+        public static void clickNo() {
+            EntityCreationPage.ConfirmationDialog.NO().click();
+        }
+
+        public static void verifyTitle(String expectedText) {
+            Assert.assertEquals(expectedText, getCurrentTitle());
+        }
+
+        public static void verifyBody(String expectedText) {
+            Assert.assertEquals(expectedText, getCurrentBody());
+        }
+
+        public static String getCurrentTitle() {
+            return EntityCreationPage.ConfirmationDialog.title().getText();
+        }
+
+        public static String getCurrentBody() {
+            return EntityCreationPage.ConfirmationDialog.body().getText();
         }
     }
 
     public static class Location {
         public static void set(String locationName) throws InterruptedException {
-            sleep();
-            EntityCreationPage.generalPanel.locationPanelLink().click();
-            EntityCreationPage.generalPanel.locationPanelInput().sendKeys(locationName);
+            EntityCreationPage.generalPanel.locationAddBtn().click();
+            EntityCreationPage.generalPanel.locationInput().sendKeys(locationName);
+            changeFocus();
         }
 
         public static void remove() {
-            throw new org.apache.commons.lang3.NotImplementedException("Not implemented yet");
+            EntityCreationPage.generalPanel.locationText().click();
+            EntityCreationPage.generalPanel.locationInput().clear();
+            changeFocus();
         }
 
-        public static void get() {
-            throw new org.apache.commons.lang3.NotImplementedException("Not implemented yet");
+        public static String currentValue() {
+            return EntityCreationPage.generalPanel.locationText().getText();
         }
 
         public static void verify(String expectedLocation) {
-            throw new org.apache.commons.lang3.NotImplementedException("Not implemented yet");
+            Assert.assertEquals(expectedLocation, currentValue());
         }
     }
 
     public static class Group {
+        public static void uncheckAll() {
+            EntityCreationPage.generalPanel.associatedWithLink().click();
+            uncheckElement(EntityCreationPage.generalPanel.AssociatedWithPopup.mainCheckbox());
+            EntityCreationPage.generalPanel.AssociatedWithPopup.enterBtn().click();
+        }
+
+        public static void checkAll() {
+            EntityCreationPage.generalPanel.associatedWithLink().click();
+            uncheckElement(EntityCreationPage.generalPanel.AssociatedWithPopup.mainCheckbox());
+            EntityCreationPage.generalPanel.AssociatedWithPopup.mainCheckbox().click();
+            EntityCreationPage.generalPanel.AssociatedWithPopup.enterBtn().click();
+        }
+
         public static void associateWith(String groupName) {
             EntityCreationPage.generalPanel.associatedWithLink().click();
-            expandAll(EntityCreationPage.generalPanel.associatedWithPopupExpandIcons());
-            EntityCreationPage.generalPanel.associatedWithPopupGroupLabel(groupName).click();
-            EntityCreationPage.generalPanel.associatedWithPopupEnterBtn().click();
+            expandAll(EntityCreationPage.generalPanel.AssociatedWithPopup.expandIcons());
+            EntityCreationPage.generalPanel.AssociatedWithPopup.groupLabel(groupName).click();
+            EntityCreationPage.generalPanel.AssociatedWithPopup.enterBtn().click();
         }
     }
 

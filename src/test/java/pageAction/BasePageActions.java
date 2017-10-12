@@ -61,6 +61,12 @@ public class BasePageActions {
         }
     }
 
+    protected static void uncheckElement(WebElement element){
+        while (element.getAttribute("class").contains("checked")) {
+            element.click();
+        }
+    }
+
     public static void callContextMenuForElement(WebElement ele) {
         action.moveToElement(ele).perform();
     }

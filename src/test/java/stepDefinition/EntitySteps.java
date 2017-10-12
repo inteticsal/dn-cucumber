@@ -1,5 +1,6 @@
 package stepDefinition;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import pageAction.desktop.EntityCreation;
@@ -67,24 +68,34 @@ public class EntitySteps {
         //TODO:
     }
 
-    @And("^I upload PNG image$")
-    public void iUploadImage() {
-        EntityCreation.Attachments.uploadImage();
-    }
-
-    @And("^I enter note with \"([^\"]*)\" text$")
+    @And("^I enter Entity Note \"([^\"]*)\"$")
     public void iEnterNoteWithText(String text) throws Throwable {
         EntityCreation.Note.set(text);
     }
 
-    @And("^I set location to \"([^\"]*)\"$")
-    public void iSetLocationTo(String locationName) throws Throwable {
-        EntityCreation.Location.set(locationName);
+    @And("^I verify Entity Note \"([^\"]*)\"$")
+    public void iVerifyEntityNote(String text) throws Throwable {
+        EntityCreation.Note.verify(text);
     }
 
-    @And("^I associate it with \"([^\"]*)\"$")
-    public void iAssociateItWith(String groupLabel) throws Throwable {
-        EntityCreation.Group.associateWith(groupLabel);
+    @And("^I clear Entity Note$")
+    public void iClearEntityNote() throws Throwable {
+        EntityCreation.Note.clear();
+    }
+
+    @And("^I upload \"([^\"]*)\" to Entity Attachments$")
+    public void iUploadImage(String fileName) {
+        EntityCreation.Attachments.uploadImage(fileName);
+    }
+
+    @And("^I verify Entity Attachment has \"([^\"]*)\"$")
+    public void iVerifyEntityAttachment(String fileName) throws Throwable {
+        EntityCreation.Attachments.verify(fileName);
+    }
+
+    @And("^I delete \"([^\"]*)\" from Entity Attachments$")
+    public void iDeleteFromEntityAttachments(String fileName) throws Throwable {
+        EntityCreation.Attachments.remove(fileName);
     }
 
     @And("^I verify Entity Description \"([^\"]*)\"$")
@@ -100,5 +111,59 @@ public class EntitySteps {
     @And("^I delete first Text article at Tasks Panel$")
     public void iDeleteFirstTextArticleAtTasksPanel() throws Throwable {
         EntityCreation.Article.deleteFirst();
+    }
+
+    @And("^I click (YES|NO) button at confirmation dialog$")
+    public void iClickYESButtonAtConfirmationDialog(String btnName) throws Throwable {
+        switch (btnName) {
+            case "YES":
+                EntityCreation.ConfirmationDialog.clickYes();
+                break;
+            case "NO":
+                EntityCreation.ConfirmationDialog.clickNo();
+                break;
+        }
+    }
+
+    @And("^I see confirmation dialog with (body|title) \"([^\"]*)\"$")
+    public void iSeeConfirmationDialogWithTitle(String choise, String text) throws Throwable {
+        switch (choise){
+            case "body":
+                EntityCreation.ConfirmationDialog.verifyBody(text);
+                break;
+            case "title":
+                EntityCreation.ConfirmationDialog.verifyTitle(text);
+                break;
+        }
+    }
+
+    @And("^I set location to \"([^\"]*)\"$")
+    public void iSetLocationTo(String locationName) throws Throwable {
+        EntityCreation.Location.set(locationName);
+    }
+
+    @And("^I verify \"([^\"]*)\" is current Entity Location$")
+    public void iVerifyIsCurrentEntityLocation(String text) throws Throwable {
+        EntityCreation.Location.verify(text);
+    }
+
+    @And("^I remove current Entity Location$")
+    public void iRemoveCurrentEntityLocation() throws Throwable {
+        EntityCreation.Location.remove();
+    }
+
+    @And("^I add \"([^\"]*)\" to Entity Associations$")
+    public void iAddToEntityAssociations(String groupLabel) throws Throwable {
+        EntityCreation.Group.associateWith(groupLabel);
+    }
+
+    @And("^I remove all Entity Associations$")
+    public void iRemoveAllEntityAssociations() throws Throwable {
+        EntityCreation.Group.uncheckAll();
+    }
+
+    @And("^I check all Entity Associations$")
+    public void iCheckAllEntityAssociations() throws Throwable {
+        EntityCreation.Group.checkAll();
     }
 }

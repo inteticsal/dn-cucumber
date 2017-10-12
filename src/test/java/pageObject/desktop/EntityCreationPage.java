@@ -14,29 +14,45 @@ public class EntityCreationPage {
         return driver.findElement(By.xpath("//div[@class='headTitle']/span[contains(text(),'Event') or contains(text(),'Story')]"));
     }
 
+    public static WebElement uploadingMessage() {
+        return driver.findElement(By.xpath("//div[@class='loadingMsg' and text()='Saving data...']"));
+    }
+
     public static class generalPanel {
-        public static WebElement currentDescriptionText() {
-            return driver.findElement(By.xpath("//span[@class='elementTitleContent']/span"));
+        public static WebElement descriptionText() {
+            return driver.findElement(By.xpath("//div[contains(@class,'element-title')]//span/*"));
         }
 
-        public static WebElement descriptionTextArea() {
+        public static WebElement description() {
             return driver.findElement(By.xpath("//div[contains(@class,'element-title')]//textarea"));
         }
 
+        public static WebElement notePanelText() {
+            return driver.findElement(By.xpath("//div[contains(@class,'note-panel')]//span/*"));
+        }
+
         public static WebElement notePanel() {
-            return driver.findElement(By.xpath("//div[contains(@class,'note-panel')]"));
+            return driver.findElement(By.xpath("//div[contains(@class,'note-panel')]//textarea"));
         }
 
         public static WebElement uploadPanel() {
             return driver.findElement(By.xpath("//div[@class='attachments']//input[@class='gwt-FileUpload']"));
         }
 
-        public static WebElement locationPanelLink() {
+        public static WebElement attachment(String fileName){
+            return driver.findElement(By.xpath("//a[@class='document-name' and text()='" + fileName + "']"));
+        }
+
+        public static WebElement locationAddBtn() {
             return driver.findElement(By.xpath("//div[text()='Location']/following::a[text()='Add']"));
         }
 
-        public static WebElement locationPanelInput() {
-            return driver.findElement(By.xpath("//div[@class='location-edit']//input"));
+        public static WebElement locationInput() {
+            return driver.findElement(By.xpath("//div[@class='location-edit']//input[not(contains(@style,'hidden'))]"));
+        }
+
+        public static WebElement locationText() {
+            return driver.findElement(By.xpath("//div[@class='location-name']/span"));
         }
 
         public static WebElement associatedWithLink() {
@@ -47,24 +63,30 @@ public class EntityCreationPage {
             return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//div[@class='popupContent']"));
         }
 
-        public static List<WebElement> associatedWithPopupExpandIcons() {
-            return driver.findElements(By.xpath("//div[@title='Expand']"));
-        }
+        public static class AssociatedWithPopup{
+            public static WebElement mainCheckbox(){
+                return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//a[contains(@class,'aCheckBox')]"));
+            }
 
-        public static List<WebElement> associatedWithPopupCollapseIcons() {
-            return driver.findElements(By.xpath("//div[@title='Collapse']"));
-        }
+            public static List<WebElement> expandIcons() {
+                return driver.findElements(By.xpath("//div[contains(@class,'groups-filter')]//div[@title='Expand']"));
+            }
 
-        public static WebElement associatedWithPopupGroupLabel(String groupName) {
-            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//*[text()='" + groupName + "']"));
-        }
+            public static List<WebElement> collapseIcons() {
+                return driver.findElements(By.xpath("//div[contains(@class,'groups-filter')]//div[@title='Collapse']"));
+            }
 
-        public static WebElement associatedWithPopupEnterBtn() {
-            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//a[text()='Enter']"));
-        }
+            public static WebElement groupLabel(String groupName) {
+                return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//*[text()='" + groupName + "']"));
+            }
 
-        public static WebElement associatedWithPopupCancelBtn() {
-            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//a[text()='Cancel']"));
+            public static WebElement enterBtn() {
+                return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//a[text()='Enter']"));
+            }
+
+            public static WebElement cancelBtn() {
+                return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//a[text()='Cancel']"));
+            }
         }
     }
 
@@ -104,9 +126,37 @@ public class EntityCreationPage {
         public static WebElement textArticleLabel() {
             return driver.findElement(By.xpath("//div[@class='removeBlock']/div[text()='Text']"));
         }
+    }
 
-        public static WebElement deleteLinkContextMenu() {
-            return driver.findElement(By.xpath("//a[@class='gwt-Anchor' and text()='Delete']"));
+    public static class ContextMenu {
+        public static WebElement popup() {
+            return driver.findElement(By.xpath("//div[@class='popupContent']"));
+        }
+
+        public static WebElement open() {
+            return driver.findElement(By.xpath("//div[@class='popupContent']//a[text()='Open']"));
+        }
+
+        public static WebElement delete() {
+            return driver.findElement(By.xpath("//div[@class='popupContent']//a[text()='Delete']"));
+        }
+    }
+
+    public static class ConfirmationDialog {
+        public static WebElement YES() {
+            return driver.findElement(By.xpath("//div[@class='popupContent']//a[text()='Yes']"));
+        }
+
+        public static WebElement NO() {
+            return driver.findElement(By.xpath("//div[@class='popupContent']//a[text()='No']"));
+        }
+
+        public static WebElement title() {
+            return driver.findElement(By.xpath("//div[@class='dialog-title']/span"));
+        }
+
+        public static WebElement body() {
+            return driver.findElement(By.xpath("//tr[@class='fields-table-row']//div"));
         }
     }
 
