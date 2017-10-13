@@ -166,4 +166,76 @@ public class EntitySteps {
     public void iCheckAllEntityAssociations() throws Throwable {
         EntityCreation.Group.checkAll();
     }
+
+    @And("^I verify Entity Associations is \"([^\"]*)\"$")
+    public void iVerifyEntityAssociationsIs(String text) throws Throwable {
+        EntityCreation.Group.verify(text);
+    }
+
+    @And("^I open Entity Associations popup$")
+    public void iCallEntityAssociationsPopup() throws Throwable {
+        EntityCreation.Group.openPopup();
+    }
+
+    @And("^I click \"([^\"]*)\" in Entity Associations popup$")
+    public void iCheckInEntityAssociationsPopup(String checkboxLabel) throws Throwable {
+        EntityCreation.Group.clickCheckbox(checkboxLabel);
+    }
+
+    @And("^I click (ENTER|CANCEL) in Entity Associations popup$")
+    public void iClickENTERInEntityAssociationsPopup(String btnName) throws Throwable {
+        switch (btnName){
+            case "ENTER":
+                EntityCreation.Group.clickEnter();
+                break;
+            case "CANCEL":
+                EntityCreation.Group.clickCancel();
+                break;
+        }
+    }
+
+    @And("^I verify Entity Associations Popup Title is \"([^\"]*)\"$")
+    public void iVerifyEntityAssociationsPopupTitleIs(String expectedTitle) throws Throwable {
+        EntityCreation.Group.verifyTitlePopup(expectedTitle);
+    }
+
+    @And("^I make Entity (Confidential|Not confidential)$")
+    public void iMakeItConfidential(String confState) throws Throwable {
+        switch (confState) {
+            case "Confidential":
+                EntityCreation.Confidential.setStatus(true);
+                break;
+            case "Not confidential":
+                EntityCreation.Confidential.setStatus(false);
+                break;
+        }
+    }
+
+    @And("^I set Entity Event (start|end) date to (selected|today) (plus|minus) (\\d+) days$")
+    public void iSetEntityEventStartDateToTodayPlusDays(String event, String date, String action, int days) throws Throwable {
+        switch (event){
+            case "start":
+                if (action.equals("plus") && date.equals("selected")) {
+                    EntityCreation.Event.increaseSelectedStartDate(days);
+                } else if (action.equals("minus")&& date.equals("selected")) {
+                    EntityCreation.Event.decreaseSelectedStartDate(days);
+                } else if (action.equals("plus") && date.equals("today")) {
+                    EntityCreation.Event.increaseTodayStartDate(days);
+                } else if (action.equals("minus") && date.equals("today")) {
+                EntityCreation.Event.decreaseTodayStartDate(days);
+                }
+                break;
+            case "end":
+                if (action.equals("plus") && date.equals("selected")) {
+                    EntityCreation.Event.increaseSelectedEndDate(days);
+                } else if (action.equals("minus") && date.equals("selected")) {
+                    EntityCreation.Event.decreaseSelectedEndDate(days);
+                } else if (action.equals("plus") && date.equals("today")) {
+                    EntityCreation.Event.increaseTodayEndDate(days);
+                } else if (action.equals("minus") && date.equals("today")) {
+                    EntityCreation.Event.decreaseTodayEndDate(days);
+                }
+                break;
+        }
+    }
 }

@@ -39,7 +39,7 @@ public class EntityCreationPage {
             return driver.findElement(By.xpath("//div[@class='attachments']//input[@class='gwt-FileUpload']"));
         }
 
-        public static WebElement attachment(String fileName){
+        public static WebElement attachment(String fileName) {
             return driver.findElement(By.xpath("//a[@class='document-name' and text()='" + fileName + "']"));
         }
 
@@ -55,17 +55,21 @@ public class EntityCreationPage {
             return driver.findElement(By.xpath("//div[@class='location-name']/span"));
         }
 
-        public static WebElement associatedWithLink() {
-            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]/div/div"));
+        public static WebElement associatedWith() {
+            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//div[contains(@class,'comboCaption')]"));
         }
 
-        public static WebElement associatedWithPopup() {
-            return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//div[@class='popupContent']"));
-        }
+        public static class AssociatedWithPopup {
+            public static WebElement boxTitle() {
+                return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//span[@class='select-box-header-title']"));
+            }
 
-        public static class AssociatedWithPopup{
-            public static WebElement mainCheckbox(){
+            public static WebElement mainCheckbox() {
                 return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//a[contains(@class,'aCheckBox')]"));
+            }
+
+            public static WebElement checkboxItem(String checkboxLabel) {
+                return driver.findElement(By.xpath("//span[text()='" + checkboxLabel + "']/following::div/a"));
             }
 
             public static List<WebElement> expandIcons() {
@@ -87,6 +91,30 @@ public class EntityCreationPage {
             public static WebElement cancelBtn() {
                 return driver.findElement(By.xpath("//div[contains(@class,'groups-filter')]//a[text()='Cancel']"));
             }
+        }
+
+        public static WebElement confidentialLabel() {
+            return driver.findElement(By.xpath("//div[@class='confidentiality']//div[contains(@class,'Label')]"));
+        }
+
+        public static WebElement eventStartDate() {
+            return driver.findElement(By.xpath("//div[@class='statusCalendar']//tr[1]//div[@id='date-box']//div[@class='gwt-HTML']"));
+        }
+
+        public static WebElement eventEndDate() {
+            return driver.findElement(By.xpath("//div[@class='statusCalendar']//tr[2]//div[@id='date-box']//div[@class='gwt-HTML']"));
+        }
+
+        public static WebElement eventStartTime() {
+            return driver.findElement(By.xpath("//div[@class='statusCalendar']//tr[1]//div[@id='time-box']/a"));
+        }
+
+        public static WebElement eventEndTime() {
+            return driver.findElement(By.xpath("//div[@class='statusCalendar']//tr[2]//div[@id='time-box']/a"));
+        }
+
+        public static WebElement eventAllDayCheckbox() {
+            return driver.findElement(By.xpath("//a[@class='aCheckBox all-day-event']"));
         }
     }
 

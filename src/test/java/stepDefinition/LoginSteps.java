@@ -1,10 +1,13 @@
 package stepDefinition;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import pageAction.desktop.Login;
+import pageAction.desktop.NavPanel;
 import pageAction.mobile.mLoginActions;
+import pageObject.desktop.NavigationPanel;
 import testRunner.TestRunner;
 
 public class LoginSteps {
@@ -33,5 +36,10 @@ public class LoginSteps {
         } else {
             Login.login(name);
         }
+    }
+
+    @And("^I log out$")
+    public void iLogOut() throws Throwable {
+        NavPanel.logout();
     }
 }

@@ -126,7 +126,11 @@ public class NavPanel extends BasePageActions {
         }
     }
 
-    public static void callSecondaryMenuForNavigationItem(WebElement ele) {
+    public static void logout() {
+        NavigationPanel.logoutBtn().click();
+    }
+
+    private static void callSecondaryMenuForNavigationItem(WebElement ele) {
         action.moveToElement(ele).perform();
     }
 }

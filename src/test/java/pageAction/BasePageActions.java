@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObject.desktop.CalendarWidget;
 import pageObject.desktop.ControlPanel;
 import pageObject.mobile.mControlPanel;
 import testRunner.TestRunner;
@@ -61,7 +62,7 @@ public class BasePageActions {
         }
     }
 
-    protected static void uncheckElement(WebElement element){
+    protected static void uncheckCheckbox(WebElement element) {
         while (element.getAttribute("class").contains("checked")) {
             element.click();
         }
@@ -69,5 +70,37 @@ public class BasePageActions {
 
     public static void callContextMenuForElement(WebElement ele) {
         action.moveToElement(ele).perform();
+    }
+
+    public static class Calendar {
+        public static void todayClick() {
+            CalendarWidget.Popup.todayDate().click();
+        }
+
+        public static void increaseToday(int numberOfDays) {
+            CalendarWidget.Popup.afterTodayDate(numberOfDays).click();
+        }
+
+        public static void decreaseToday(int numberOfDays) {
+            clickPreviousArrow();
+            CalendarWidget.Popup.beforeTodayDate(numberOfDays).click();
+        }
+
+        public static void increaseSelected(int numberOfDays) {
+            CalendarWidget.Popup.afterSelectedDate(numberOfDays).click();
+        }
+
+        public static void decreaseSelected(int numberOfDays) {
+            clickPreviousArrow();
+            CalendarWidget.Popup.beforeSelectedDate(numberOfDays).click();
+        }
+
+        public static void clickNextArrow() {
+            CalendarWidget.Popup.rightArrow().click();
+        }
+
+        public static void clickPreviousArrow() {
+            CalendarWidget.Popup.leftArrow().click();
+        }
     }
 }

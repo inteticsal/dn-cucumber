@@ -55,7 +55,7 @@ public class EntityCreation extends BasePageActions {
         }
 
         public static void verify(String expectedDescription) {
-            Assert.assertEquals(currentValue(), Driver.timeStamp + "-" + expectedDescription);
+            Assert.assertEquals(Driver.timeStamp + "-" + expectedDescription, currentValue());
         }
     }
 
@@ -77,7 +77,7 @@ public class EntityCreation extends BasePageActions {
         }
 
         public static void verify(String expectedNote) {
-            Assert.assertEquals(currentValue(), expectedNote);
+            Assert.assertEquals(expectedNote, currentValue());
         }
     }
 
@@ -100,7 +100,7 @@ public class EntityCreation extends BasePageActions {
             EntityCreationPage.generalPanel.uploadPanel().sendKeys(System.getProperty("user.dir") + "/src/test/testData/" + fileName);
             try {
                 wait.until(ExpectedConditions.invisibilityOf(EntityCreationPage.uploadingMessage()));
-            } catch (WebDriverException NoSuchElementException) {
+            } catch (WebDriverException ignored) {
             }
         }
 
@@ -164,23 +164,134 @@ public class EntityCreation extends BasePageActions {
 
     public static class Group {
         public static void uncheckAll() {
-            EntityCreationPage.generalPanel.associatedWithLink().click();
-            uncheckElement(EntityCreationPage.generalPanel.AssociatedWithPopup.mainCheckbox());
+            EntityCreationPage.generalPanel.associatedWith().click();
+            uncheckCheckbox(EntityCreationPage.generalPanel.AssociatedWithPopup.mainCheckbox());
             EntityCreationPage.generalPanel.AssociatedWithPopup.enterBtn().click();
         }
 
         public static void checkAll() {
-            EntityCreationPage.generalPanel.associatedWithLink().click();
-            uncheckElement(EntityCreationPage.generalPanel.AssociatedWithPopup.mainCheckbox());
+            EntityCreationPage.generalPanel.associatedWith().click();
+            uncheckCheckbox(EntityCreationPage.generalPanel.AssociatedWithPopup.mainCheckbox());
             EntityCreationPage.generalPanel.AssociatedWithPopup.mainCheckbox().click();
             EntityCreationPage.generalPanel.AssociatedWithPopup.enterBtn().click();
         }
 
         public static void associateWith(String groupName) {
-            EntityCreationPage.generalPanel.associatedWithLink().click();
+            EntityCreationPage.generalPanel.associatedWith().click();
             expandAll(EntityCreationPage.generalPanel.AssociatedWithPopup.expandIcons());
             EntityCreationPage.generalPanel.AssociatedWithPopup.groupLabel(groupName).click();
             EntityCreationPage.generalPanel.AssociatedWithPopup.enterBtn().click();
+        }
+
+        public static void verify(String expectedValue) {
+            Assert.assertEquals(expectedValue, currentValue());
+        }
+
+        public static void openPopup() {
+            EntityCreationPage.generalPanel.associatedWith().click();
+            expandAll(EntityCreationPage.generalPanel.AssociatedWithPopup.expandIcons());
+        }
+
+        public static void clickEnter() {
+            EntityCreationPage.generalPanel.AssociatedWithPopup.enterBtn().click();
+        }
+
+        public static void clickCancel() {
+            EntityCreationPage.generalPanel.AssociatedWithPopup.cancelBtn().click();
+        }
+
+        public static void clickCheckbox(String checkboxLabel) {
+            EntityCreationPage.generalPanel.AssociatedWithPopup.groupLabel(checkboxLabel).click();
+        }
+
+        public static void isChecked(String checkboxLabel, boolean currentStatus) {
+            String actual = EntityCreationPage.generalPanel.AssociatedWithPopup.checkboxItem(checkboxLabel).getAttribute("class");
+            if (currentStatus) {
+                Assert.assertEquals("aCheckBox checked", actual);
+            } else {
+                Assert.assertEquals("aCheckBox", actual);
+            }
+        }
+
+        private static String currentValue() {
+            return EntityCreationPage.generalPanel.associatedWith().getText();
+        }
+
+        public static void verifyTitlePopup(String expectedValue) {
+            String currentTitle = EntityCreationPage.generalPanel.AssociatedWithPopup.boxTitle().getText();
+            Assert.assertEquals(expectedValue, currentTitle);
+        }
+    }
+
+    public static class Event {
+        public static void showStartDateCalendar(){
+            EntityCreationPage.generalPanel.eventStartDate().click();
+        }
+
+        public static void showEndDateCalendar(){
+            EntityCreationPage.generalPanel.eventEndDate().click();
+        }
+
+        public static void increaseSelectedStartDate(int days) {
+            showStartDateCalendar();
+            Calendar.increaseSelected(days);
+        }
+
+        public static void decreaseSelectedStartDate(int days) {
+            showStartDateCalendar();
+            Calendar.decreaseSelected(days);
+        }
+
+        public static void increaseSelectedEndDate(int days) {
+            showEndDateCalendar();
+            Calendar.increaseSelected(days);
+        }
+
+        public static void decreaseSelectedEndDate(int days) {
+            showEndDateCalendar();
+            Calendar.decreaseSelected(days);
+        }
+
+        public static void increaseTodayStartDate(int days) {
+            showStartDateCalendar();
+            Calendar.increaseToday(days);
+        }
+
+        public static void decreaseTodayStartDate(int days) {
+            showStartDateCalendar();
+            Calendar.decreaseToday(days);
+        }
+
+        public static void increaseTodayEndDate(int days) {
+            showEndDateCalendar();
+            Calendar.increaseToday(days);
+        }
+
+        public static void decreaseTodayEndDate(int days) {
+            showEndDateCalendar();
+            Calendar.decreaseToday(days);
+        }
+    }
+
+    public static class Confidential {
+        public static void click() {
+            EntityCreationPage.generalPanel.confidentialLabel().click();
+        }
+
+        public static void verify(String expectedLabel) {
+            Assert.assertEquals(expectedLabel, currentValue());
+        }
+
+        public static void setStatus(boolean isConfidental) {
+            if (isConfidental && currentValue().contains("Not")) {
+                click();
+            } else if (!isConfidental && currentValue().equalsIgnoreCase("Confidential")) {
+                click();
+            }
+        }
+
+        private static String currentValue() {
+            return EntityCreationPage.generalPanel.confidentialLabel().getText();
         }
     }
 

@@ -35,9 +35,27 @@ Feature: Event creation
     And I remove current Entity Location
 
     And I remove all Entity Associations
-    And I wait for a second
+    And I verify Entity Associations is "None selected"
+    And I open Entity Associations popup
+    And I click "Summer dep" in Entity Associations popup
+    And I verify Entity Associations Popup Title is "Summer dep"
+    And I click CANCEL in Entity Associations popup
+    And I verify Entity Associations is "None selected"
+    And I open Entity Associations popup
+    And I click "Summer dep" in Entity Associations popup
+    And I click ENTER in Entity Associations popup
+    And I verify Entity Associations is "Summer dep"
     And I add "Music dep" to Entity Associations
+    And I verify Entity Associations is "2 groups"
     And I check all Entity Associations
+    And I verify Entity Associations is "6 groups"
 
+    And I make Entity Confidential
+    And I make Entity Confidential
+    And I make Entity Not confidential
 
-    Then I wait for 5 seconds
+    And I set Entity Event start date to selected plus 3 days
+    And I set Entity Event start date to selected minus 15 days
+    And I set Entity Event end date to selected plus 3 days
+
+    And I wait for 5 seconds
